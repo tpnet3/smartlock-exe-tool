@@ -28,7 +28,7 @@ namespace SmartLocker
         {
             string fileLocation = Assembly.GetEntryAssembly().Location;
             string curDir = Path.GetDirectoryName(fileLocation);
-            string templateSrc = curDir + @"\SmartLockerTemplate\Template.cs";
+            string bindCsSrc = curDir + @"\SmartLockerTemplate\DataBind.cs";
 
             string exeSrc;
             string icoSrc = null;
@@ -76,7 +76,7 @@ namespace SmartLocker
             }
 
             // 실행파일에 맞는 cs 파일 생성
-            SaveCs(templateSrc, tmpCsSrc, bin, filename, hash);
+            SaveCs(bindCsSrc, tmpCsSrc, bin, filename, hash);
 
             // 아이콘 파일 생성
             if (icoSrc == null)
@@ -98,8 +98,32 @@ namespace SmartLocker
             argStr += icoSrc != null ? " /win32icon:\"" + icoSrc + "\"" : "";
             argStr += " /main:SmartLockerTemplate.Template";
             argStr += " \"" + tmpCsSrc + "\"";
+
+
+            try
+            {
+                // Only get files that begin with the letter "c."
+                string[] dirs = Directory.GetFiles(curDir + @"\SmartLockerTemplate", "*.cs");
+                
+                foreach (string dir in dirs)
+                {
+                    if ( ! dir.Substring(dir.Length - "\\DataBind.cs".Length).Equals("\\DataBind.cs"))
+                    {
+                        // Console.WriteLine(dir);
+                        argStr += " \"" + dir + "\"";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                // Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+
+            /*
+            argStr += " \"" + curDir + @"\SmartLockerTemplate\Template.cs" + "\"";
             argStr += " \"" + curDir + @"\SmartLockerTemplate\LoginForm.cs" + "\"";
             argStr += " \"" + curDir + @"\SmartLockerTemplate\LoginForm.Designer.cs" + "\"";
+            */
 
             Process proc = ProcessStart(cscPath, argStr);
 
@@ -208,6 +232,7 @@ namespace SmartLocker
             string csBinary = "=\"" + Convert.ToBase64String(bin) + "\"";
             string csFilename = "=\"" + filename + "\"";
             string csIsdotnet = "=" + isDotNet;
+            string csPublicKey = "=\"" + "\"";
 
             using (StreamReader sr = new StreamReader(templateLoc))
             {
@@ -217,7 +242,8 @@ namespace SmartLocker
                             .Replace("/*@BINARY*/", csBinary)
                             .Replace("/*@FILENAME*/", csFilename)
                             .Replace("/*@IS_DOT_NET*/", csIsdotnet)
-                            .Replace("/*@EXE_HASH*/", "=\"" + hash + "\""));
+                            .Replace("/*@EXE_HASH*/", "=\"" + hash + "\"")
+                            .Replace("/*@PUBLIC_KEY*/", csPublicKey));
                 }
             }
 

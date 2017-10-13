@@ -12,3 +12,10 @@ D:\source\smartlocker\SmartLocker\obj\Debug\SmartLocker.csprojResolveAssemblyRef
 D:\source\smartlocker\SmartLocker\obj\Debug\SmartLocker.csproj.CoreCompileInputs.cache
 D:\source\smartlocker\SmartLocker\obj\Debug\SmartLocker.exe
 D:\source\smartlocker\SmartLocker\obj\Debug\SmartLocker.pdb
+D:\source\smartlock-exe-tool\SmartLocker\bin\Debug\SmartLocker.exe.config
+D:\source\smartlock-exe-tool\SmartLocker\bin\Debug\SmartLocker.exe
+D:\source\smartlock-exe-tool\SmartLocker\bin\Debug\SmartLocker.pdb
+D:\source\smartlock-exe-tool\SmartLocker\obj\Debug\SmartLocker.csprojResolveAssemblyReference.cache
+D:\source\smartlock-exe-tool\SmartLocker\obj\Debug\SmartLocker.csproj.CoreCompileInputs.cache
+D:\source\smartlock-exe-tool\SmartLocker\obj\Debug\SmartLocker.exe
+D:\source\smartlock-exe-tool\SmartLocker\obj\Debug\SmartLocker.pdb

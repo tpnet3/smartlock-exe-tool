@@ -12,21 +12,6 @@ namespace SmartLockerTemplate
 {
     class Template
     {
-        // exe 바이너리가 바운드 됩니다.
-        private readonly string BINARY/*@BINARY*/;
-
-        // exe 해시값이 바운드 됩니다.
-        private readonly string EXE_HASH/*@EXE_HASH*/;
-
-        // 원본 파일 이름이 바운드 됩니다.
-        private static readonly string FILENAME/*@FILENAME*/;
-
-        // .NET 여부가 바운드 됩니다. (0: .net 아님, 1: .net)
-        public static readonly int IS_DOT_NET/*@IS_DOT_NET*/;
-
-        // 공개키
-        public static readonly string publicKey = "";
-        
         // 맥주소
         public static readonly string macAddr =
             (
@@ -70,7 +55,7 @@ namespace SmartLockerTemplate
                 if (CheckLic(lic))
                 {
                     // 프로그램 실행
-                    new SourceProgram(args, Convert.FromBase64String(BINARY));
+                    new SourceProgram(args, Convert.FromBase64String(DataBind.BINARY));
                 }
                 else
                 {
@@ -78,7 +63,7 @@ namespace SmartLockerTemplate
                     if (RefreshLic())
                     {
                         // 프로그램 실행
-                        new SourceProgram(args, Convert.FromBase64String(BINARY));
+                        new SourceProgram(args, Convert.FromBase64String(DataBind.BINARY));
                     }
                     else
                     {
@@ -129,7 +114,7 @@ namespace SmartLockerTemplate
                 return false;
             }
 
-            if (keyList[0].Equals(macAddr) && keyList[1].Equals(EXE_HASH))
+            if (keyList[0].Equals(macAddr) && keyList[1].Equals(DataBind.EXE_HASH))
             {
                 return true;
             }
@@ -160,7 +145,7 @@ namespace SmartLockerTemplate
             this.args = args;
             this.bin = bin;
 
-            if (Template.IS_DOT_NET == 1)
+            if (DataBind.IS_DOT_NET == 1)
             {
                 AsmRun();
             }
